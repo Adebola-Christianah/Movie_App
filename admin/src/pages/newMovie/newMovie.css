@@ -1,0 +1,79 @@
+.newProduct {
+  flex: 4;
+}
+
+.addProductForm {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addProductItem {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+.addProductItem > label {
+  color: gray;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.addProductItem > input {
+  padding: 10px;
+}
+
+.addProductItem > select {
+  padding: 10px;
+}
+
+.addProductButton {
+  height: 30px;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: darkblue;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: center;
+}
+.progressContainer {
+  width: 40%;
+  background-color: #D5FFFF;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.progressBar {
+  height: 20px;
+  background-color: darkblue;
+  border-radius: 4px;
+}
+
+.progressContainer > span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  color: white;
+}
+@media (max-width: 768px) {
+  .progressContainer {
+    .progressBar {
+      height: 15px;
+      width: 80%;
+    }
+
+    > span {
+      font-size: 12px;
+    }
+  }
+}
