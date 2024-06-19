@@ -1,121 +1,187 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./movie.css";
+import { Publish } from "@material-ui/icons";
+import storage from "../../firebase"; // Import storage from your Firebase setup
+import { updateMovie } from "../../context/movieContext/apiCalls"; // Update the path accordingly
+import { MovieContext } from "../../context/movieContext/MovieContext";
 
-const API_KEY = 'b60eb8fce3740a7bae744bd3699d8721';
-const BASE_URL = 'https://api.themoviedb.org/3';
+export default function Movie() {
+  const location = useLocation();
+  const movie = location.state.movie; // Assuming the movie is passed via state
+  const { dispatch } = useContext(MovieContext);
 
-// Function to save data to JSON file on the server-side
-const saveDataToFile = (data, filename) => {
-  // Assuming you're handling file operations on the server-side using Node.js
-  // Example code to save data to a JSON file in Node.js:
-  // fs.writeFile(filename, JSON.stringify(data), (err) => {
-  //   if (err) {
-  //     console.error('Error saving data to file:', err);
-  //   } else {
-  //     console.log('Data saved to file successfully:', filename);
-  //   }
-  // });
-};
+  const [updatedMovie, setUpdatedMovie] = useState(movie);
+  const [img, setImg] = useState(null);
+  const [imgTitle, setImgTitle] = useState(null);
+  const [imgSm, setImgSm] = useState(null);
+  const [trailer, setTrailer] = useState(null);
+  const [video, setVideo] = useState(null);
+  const [uploaded, setUploaded] = useState(0);
+  const [progress, setProgress] = useState(0);
 
-const MovieAndSeries = () => {
-  const [movies, setMovies] = useState([]);
-  const [series, setSeries] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setUpdatedMovie({ ...updatedMovie, [e.target.name]: value });
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const movieResponse = await axios.get(
-          `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&include_adult=false`
-        );
-        const seriesResponse = await axios.get(
-          `${BASE_URL}/discover/tv?api_key=${API_KEY}&language=en-US&include_adult=false`
-        );
+  const handleFileChange = (e, setter) => {
+    setter(e.target.files[0]);
+  };
 
-        const moviesWithVideosAndImages = await Promise.all(
-          movieResponse.data.results.map(async (movie) => {
-            const videoResponse = await axios.get(
-              `${BASE_URL}/movie/${movie.id}/videos?api_key=${API_KEY}`
-            );
-            const imageResponse = await axios.get(
-              `https://api.themoviedb.org/3/movie/${movie.id}/images?api_key=${API_KEY}`
-            );
-            return {
-              ...movie,
-              video: videoResponse.data.results[0]?.key || null, // Get the first video key if available
-              posterImage: imageResponse.data.posters[0]?.file_path || null, // Get the first poster image path if available
-            };
-          })
-        );
+  const upload = (items) => {
+    items.forEach((item) => {
+      const fileName = new Date().getTime() + item.label + item.file.name;
+      const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(Math.round(progress));
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+            setUpdatedMovie((prev) => {
+              return { ...prev, [item.label]: url };
+            });
+            setUploaded((prev) => prev + 1);
+          });
+        }
+      );
+    });
+  };
 
-        const seriesWithVideosAndImages = await Promise.all(
-          seriesResponse.data.results.map(async (serie) => {
-            const videoResponse = await axios.get(
-              `${BASE_URL}/tv/${serie.id}/videos?api_key=${API_KEY}`
-            );
-            const imageResponse = await axios.get(
-              `https://api.themoviedb.org/3/tv/${serie.id}/images?api_key=${API_KEY}`
-            );
-            return {
-              ...serie,
-              video: videoResponse.data.results[0]?.key || null, // Get the first video key if available
-              posterImage: imageResponse.data.posters[0]?.file_path || null, // Get the first poster image path if available
-            };
-          })
-        );
+  const handleUpload = (e) => {
+    e.preventDefault();
+    setProgress(0); // Reset progress before starting a new upload
+    upload([
+      { file: img, label: "img" },
+      { file: imgTitle, label: "imgTitle" },
+      { file: imgSm, label: "imgSm" },
+      { file: trailer, label: "trailer" },
+      { file: video, label: "video" },
+    ]);
+  };
 
-        // Save the data to JSON files
-        saveDataToFile(moviesWithVideosAndImages, 'movies.json');
-        saveDataToFile(seriesWithVideosAndImages, 'series.json');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateMovie(updatedMovie, dispatch);
+  };
 
-        setMovies(moviesWithVideosAndImages);
-        setSeries(seriesWithVideosAndImages);
-        setIsLoading(false);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-console.log(movies,'movies')
-console.log(series,'movies')
   return (
-    <div>
-      <h2>Movies</h2>
-      <div>
-        {movies.map((movie) => (
-          <div key={movie.id}>
-            <h3>{movie.title}</h3>
-            <p>{movie.overview}</p>
-            <p>Video: {movie.video}</p>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.posterImage}`} alt={movie.title} />
-          </div>
-        ))}
+    <div className="product">
+      <div className="productTitleContainer">
+        <h1 className="productTitle">Movie</h1>
+        <Link to="/newproduct">
+          <button className="productAddButton">Create</button>
+        </Link>
       </div>
-      <h2>Series</h2>
-      <div>
-        {series.map((serie) => (
-          <div key={serie.id}>
-            <h3>{serie.name}</h3>
-            <p>{serie.overview}</p>
-            <p>Video: {serie.video}</p>
-            <img src={`https://image.tmdb.org/t/p/w500${serie.posterImage}`} alt={serie.name} />
+      <div className="productTop">
+        <div className="productTopRight">
+          <div className="productInfoTop">
+            <img src={movie.img} alt="" className="productInfoImg" />
+            <span className="productName">{movie.title}</span>
           </div>
-        ))}
+          <div className="productInfoBottom">
+            <div className="productInfoItem">
+              <span className="productInfoKey">id:</span>
+              <span className="productInfoValue">{movie._id}</span>
+            </div>
+            <div className="productInfoItem">
+              <span className="productInfoKey">genre:</span>
+              <span className="productInfoValue">{movie.genre}</span>
+            </div>
+            <div className="productInfoItem">
+              <span className="productInfoKey">year:</span>
+              <span className="productInfoValue">{movie.year}</span>
+            </div>
+            <div className="productInfoItem">
+              <span className="productInfoKey">limit:</span>
+              <span className="productInfoValue">{movie.limit}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="productBottom">
+        <form className="productForm" onSubmit={handleSubmit}>
+          <div className="productFormLeft">
+            <label>Movie Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder={movie.title}
+              onChange={handleChange}
+            />
+            <label>Year</label>
+            <input
+              type="text"
+              name="year"
+              placeholder={movie.year}
+              onChange={handleChange}
+            />
+            <label>Genre</label>
+            <input
+              type="text"
+              name="genre"
+              placeholder={movie.genre}
+              onChange={handleChange}
+            />
+            <label>Limit</label>
+            <input
+              type="text"
+              name="limit"
+              placeholder={movie.limit}
+              onChange={handleChange}
+            />
+            <label>Trailer</label>
+            <input
+              type="file"
+              name="trailer"
+              onChange={(e) => handleFileChange(e, setTrailer)}
+            />
+            <label>Video</label>
+            <input
+              type="file"
+              name="video"
+              onChange={(e) => handleFileChange(e, setVideo)}
+            />
+          </div>
+          <div className="productFormRight">
+            <div className="productUpload">
+              <img src={movie.img} alt="" className="productUploadImg" />
+              <label htmlFor="file">
+                <Publish />
+              </label>
+              <input
+                type="file"
+                id="file"
+                style={{ display: "none" }}
+                onChange={(e) => handleFileChange(e, setImg)}
+              />
+            </div>
+            {uploaded === 5 ? (
+              <button className="productButton" type="submit">
+                Update
+              </button>
+            ) : (
+              <button className="productButton" onClick={handleUpload}>
+                Upload
+              </button>
+            )}
+          </div>
+        </form>
+        {uploaded < 5 && (
+          <div className="progressContainer">
+            <div className="progressBar" style={{ width: `${progress}%` }}></div>
+            <span>{progress}%</span>
+          </div>
+        )}
       </div>
     </div>
   );
-};
-
-export default MovieAndSeries;
+}

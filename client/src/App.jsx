@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./authContext/AuthContext";
-import MovieAndSeries from "./Movies";
+//import MovieAndSeries from "./Movies";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -36,9 +36,9 @@ const App = () => {
             <Route path="/watch">
               <Watch />
             </Route>
-            <Route path="/moviedownload">
+            {/* <Route path="/moviedownload">
               <MovieAndSeries />
-            </Route>
+            </Route> */}
           </>
         )}
       </Switch>
