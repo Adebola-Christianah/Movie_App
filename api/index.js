@@ -23,7 +23,7 @@ mongoose
   
   app.use(cors(
       {
-          origin: ["https://movie-app-api-frontend.vercel.app"],
+          origin: ["https://movie-app-gamma-ruby.vercel.app/ "],
           methods: ["POST", "GET"],
           credentials: true
       }
