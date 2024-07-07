@@ -18,10 +18,9 @@
   },
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "test": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts test"
-  }
-,  
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -40,5 +39,12 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://movie-app-gamma-ruby.vercel.app/"
+  "proxy": "https://movie-app-gamma-ruby.vercel.app/",
+  "vercel": {
+    "build": {
+      "env": {
+        "NODE_OPTIONS": "--openssl-legacy-provider"
+      }
+    }
+  }
 }
