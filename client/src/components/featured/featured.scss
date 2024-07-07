@@ -1,10 +1,16 @@
 @import "../../app.scss";
 
 .featured {
-  height: 100vh;
-  position: relative;
-  width: 100vw;
-
+  height: 85vh;
+  &.fullHeight {
+    height: 100vh; // full height when showContent is true
+    overflow: scroll;
+  }
+  // position: relative;
+  object-fit: cover;
+  @include mobile {
+    height: 60vh;
+  }
   .category {
     position: absolute;
     top: 80px;
@@ -28,41 +34,113 @@
   #genre{
     z-index: 2;
   }
-
+  .item-info{
+    .itemInfo {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+      color: white;
+      width: 98%;
+      margin: 5px auto;
+     
+      .desc{
+        margin-left: 3px;
+      }
+      .icons {
+        display: flex;
+        margin-bottom: 10px;
+        align-items: center;
+        a{
+          text-decoration: none;
+        }
+        @include mobile {
+          margin-bottom: 0px;
+        }
+        .icon {
+          border: 2px solid white;
+          padding: 5px;
+          border-radius: 50%;
+          margin-right: 10px;
+          font-size: 16px;
+        }
+      }
+      .itemInfoTop {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: gray;
+  
+        .limit {
+          border: 1px solid gray;
+          padding: 1px 3px;
+          margin: 0 10px;
+        }
+      }
+  
+      .desc {
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+  
+      .genre {
+        font-size: 14px;
+        color: lightgray;
+      }
+    }
+  
+  }
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+  }
+  video {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    @include mobile {
+      height: 40vh;
+      //object-fit: contain;
+    }
   }
 
   .info {
     width: 35%;
     position: absolute;
     left: 50px;
-    bottom: 60px;
+    bottom: 200px;
     color: white;
     display: flex;
     flex-direction: column;
+    @include mobile {
+      bottom: 300px;
+      left: 24px;
+    }
 
     img {
-      width: 30rem;
-      height: 100px;
-      object-fit: contain;
-      
+      width: 65%;
+      height: 65%;
+      @media screen and (max-width: 760px) {
+        height: 100%;
+        width: 100%;
+        margin-bottom: 20px;
+      }
     }
 
     .desc {
-      margin: 20px 0px;
+      margin: 20px 5px;
 
       @include mobile {
-        width: 60vw;
+        display: none;
       }
     }
 
     .buttons {
       display: flex;
-         
-     a, button{
+
+     a, button {
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
@@ -74,8 +152,6 @@
         margin-right: 10px;
         cursor: pointer;
         text-decoration: none;
-      
-
         &.play {
           background-color: white;
           color: var(--main-color);
@@ -92,4 +168,17 @@
       }
     }
   }
+}
+.flex{
+  display: flex;
+  align-items: center;
+  gap:20px;
+  
+  .paragraph{font-size: 14px;
+    width: 60%;
+  }
+}
+.episode{
+  width: 98%;
+  margin:24px auto 0 auto;
 }

@@ -8,6 +8,7 @@ import axios from "axios";
 const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
   const [genre, setGenre] = useState(null);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const getRandomLists = async () => {
@@ -34,9 +35,9 @@ const Home = ({ type }) => {
   return (
     <div className="home">
       <Navbar />
-      <Featured type={type} setGenre={setGenre} />
-      {lists.map((list) => (
-        <List list={list} />
+      <Featured type={type} setGenre={setGenre} showContent={showContent} setShowContent={setShowContent} />
+      {!showContent && lists.map((list) => (
+        <List key={list._id} list={list} />
       ))}
     </div>
   );

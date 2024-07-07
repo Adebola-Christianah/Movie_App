@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
+const cors = require('cors')
 
 dotenv.config();
 
@@ -19,7 +20,14 @@ mongoose
   .catch((err) => {
     console.error(err);
   });
-
+  
+  app.use(cors(
+      {
+          origin: ["https://deploy-mern-frontend.vercel.app"],
+          methods: ["POST", "GET"],
+          credentials: true
+      }
+  ))
 app.use(express.json());
 
 app.use("/api/auth", authRoute);

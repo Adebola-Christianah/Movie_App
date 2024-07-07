@@ -23,6 +23,7 @@ export default function ListItem({ index, item }) {
           },
         });
         setMovie(res.data);
+        console.log(movie,'movie')
       } catch (err) {
         console.log(err);
       }
@@ -42,7 +43,7 @@ export default function ListItem({ index, item }) {
         
         {isHovered && (
           <>
-            <video src={movie.trailer} autoPlay={true} loop />
+            <video src={movie.episodes.lenght>0?movie.episodes[0].video:movie.trailer} autoPlay={true} loop />
             <div className="itemInfo">
               <div className="icons">
                 <PlayArrow className="icon" />

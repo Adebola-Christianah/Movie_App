@@ -1,7 +1,7 @@
 .list {
   width: 100%;
   margin-top: 10px;
-
+  margin-bottom: 10px;
   .listTitle {
     color: white;
     font-size: 20px;
@@ -11,10 +11,11 @@
 
   .wrapper {
     position: relative;
+
     .sliderArrow {
-      width: 50px;
-      height: 100%;
-      background-color: rgb(22, 22, 22, 0.5);
+      width: 20px;
+      height: 50%;
+     // background-color: rgba(22, 22, 22, 0.5);
       color: white;
       position: absolute;
       z-index: 99;
@@ -31,6 +32,7 @@
         right: 0;
       }
     }
+
     .container {
       margin-left: 50px;
       display: flex;
@@ -41,3 +43,9 @@
     }
   }
 }
+
+// @media screen and (max-width: 760px) {
+//   .list .wrapper .container {
+//     margin-left: 20px;
+//   }
+
