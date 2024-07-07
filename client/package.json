@@ -39,7 +39,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://movie-app-gamma-ruby.vercel.app/",
+  "proxy": "https://movie-app-frontend-9wpfa9lo1-adebolachristianahs-pro",
   "vercel": {
     "build": {
       "env": {
