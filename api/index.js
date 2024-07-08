@@ -21,14 +21,14 @@ mongoose
     console.error(err);
   });
   
-  app.use(cors(
-      {
-          origin: ["https://movie-app-frontend-eight.vercel.app/"],
-          methods: ["POST", "GET"],
-          credentials: true
-      }
-  ))
-app.use(express.json());
+  app.use(cors({
+    origin: ["https://movie-app-frontend-eight.vercel.app/"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true
+  }));
+  
+  app.use(express.json());
+  
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
