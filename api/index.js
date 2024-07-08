@@ -22,7 +22,7 @@ mongoose
   });
 
 app.use(cors({
-  origin: ["https://movie-app-frontend-eight.vercel.app"],
+  origin: ["https://movie-app-frontend-eight.vercel.app/"],
   methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
