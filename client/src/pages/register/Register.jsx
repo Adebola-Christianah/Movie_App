@@ -24,7 +24,7 @@ export default function Register() {
     setUsername(usernameRef.current.value);
 
     try {
-      await axios.post("https://movie-app-frontend-eight.vercel.app/auth/register", { email, username, password });
+      await axios.post("https://movie-app-api-two.vercel.app/auth/register", { email, username, password });
       history.push("/login");
     } catch (err) {
       setError("Failed to register. Please try again.");

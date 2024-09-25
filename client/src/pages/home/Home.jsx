@@ -14,7 +14,7 @@ const Home = ({ type }) => {
     const getRandomLists = async () => {
       try {
         const res = await axios.get(
-          `https://movie-app-frontend-eight.vercel.app/lists${type ? "?type=" + type : ""}${
+          `https://movie-app-api-two.vercel.app/lists${type ? "?type=" + type : ""}${
             genre ? "&genre=" + genre : ""
           }`,
           {
