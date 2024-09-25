@@ -39,7 +39,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://movie-app-api-two.vercel.app/",
+
   "vercel": {
     "build": {
       "env": {
@@ -48,3 +48,4 @@
     }
   }
 }
+

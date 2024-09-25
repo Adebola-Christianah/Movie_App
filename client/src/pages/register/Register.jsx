@@ -24,7 +24,7 @@ export default function Register() {
     setUsername(usernameRef.current.value);
 
     try {
-      await axios.post("/auth/register", { email, username, password });
+      await axios.post("https://movie-app-1-ocg6.onrender.com/auth/register", { email, username, password });
       history.push("/login");
     } catch (err) {
       setError("Failed to register. Please try again.");
@@ -66,8 +66,11 @@ export default function Register() {
           </div>
         ) : (
           <form className="input" onSubmit={handleFinish}>
-            <input type="text" placeholder="Username" ref={usernameRef} />
-            <input type="password" placeholder="Password" ref={passwordRef} />
+            <input type="text" placeholder="Username" onChange={(e)=>{
+              setUsername(e.target.value)
+            }} />
+            <input type="password" placeholder="Password" ref={passwordRef} onChange={(e)=>{
+                  setPassword(e.target.value)}} />
             <button className="registerButton" type="submit">
               Start
             </button>

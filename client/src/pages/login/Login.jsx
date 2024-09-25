@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { login } from "../../authContext/apiCalls";
 import { AuthContext } from "../../authContext/AuthContext";
 import "./login.scss";
+import {Link} from 'react-router-dom'
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,7 +51,7 @@ export default function Login() {
             {isLoading ? "Loading..." : "Sign In"}
           </button>
           <span>
-            New to Netflix? <b>Sign up now.</b>
+            New to Netflix? <Link to='/register' style={{textDeccoration:'none',cursor:'pointer'}}>Sign up now.</Link>
           </span>
           <small>
             This page is protected by Google reCAPTCHA to ensure you're not a

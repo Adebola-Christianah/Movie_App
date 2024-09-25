@@ -9,7 +9,12 @@ const listRoute = require("./routes/lists");
 const cors = require('cors');
 
 dotenv.config();
-
+app.use(cors({
+  origin: ["https://movie-app-frontend-eight.vercel.app/","http://localhost:3002/","https://movie-app-a4bl.onrender.com"],
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -21,12 +26,7 @@ mongoose
     console.error(err);
   });
 
-app.use(cors({
-  origin: ["https://movie-app-frontend-eight.vercel.app/"],
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+
 
 app.use(express.json());
 
