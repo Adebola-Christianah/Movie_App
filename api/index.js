@@ -10,7 +10,7 @@ const cors = require('cors');
 
 dotenv.config();
 app.use(cors({
-  origin: ["https://ecommerce-frontend-3awr.onrender.com","http://localhost:3002/"],
+  origin: ["https://movie-app-1-ocg6.onrender.com","http://localhost:3002/"],
   methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
