@@ -14,7 +14,7 @@ const Home = ({ type }) => {
     const getRandomLists = async () => {
       try {
         const res = await axios.get(
-          `https://movie-app-1-ocg6.onrender.com/lists${type ? "?type=" + type : ""}${
+          `https://movie-app-frontend-eight.vercel.app/lists${type ? "?type=" + type : ""}${
             genre ? "&genre=" + genre : ""
           }`,
           {
