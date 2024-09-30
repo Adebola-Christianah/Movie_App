@@ -1,18 +1,15 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors"); // Import cors
+
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
-const cors = require('cors');
 
 dotenv.config();
-const corsOptions = {
-  origin:'https://movie-app-1-ocg6.onrender.com',
-  credentials:true
-}
+origin: ["https://movie-app-1-ocg6.onrender.com","http://localhost:3000/","http://localhost:3001/","http://localhost:3002/"],
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -24,7 +21,8 @@ mongoose
     console.error(err);
   });
 
-
+const app = express();
+app.use(cors()); // Enable CORS for all routes
 
 app.use(express.json());
 
@@ -33,14 +31,6 @@ app.use("/api/users", userRoute);
 app.use("/api/movies", movieRoute);
 app.use("/api/lists", listRoute);
 
-const PORT = process.env.PORT || 8800;  // Render assigns process.env.PORT
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-
-// Logging all requests for debugging purposes
-app.use((req, res, next) => {
-  console.log(`${req.method} request for '${req.url}'`);
-  next();
+app.listen(8800, () => {
+  console.log("Backend server is running!");
 });
