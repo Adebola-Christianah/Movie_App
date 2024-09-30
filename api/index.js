@@ -9,12 +9,10 @@ const listRoute = require("./routes/lists");
 const cors = require('cors');
 
 dotenv.config();
-app.use(cors({
-  origin: ["https://movie-app-1-ocg6.onrender.com","http://localhost:3002/"],
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+const corsOptions = {
+  origin:'https://movie-app-1-ocg6.onrender.com',
+  credentials:true
+}
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,

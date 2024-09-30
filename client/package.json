@@ -39,7 +39,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://movie-app-a4bl.onrender.com/api/",
+  "proxy": "https://movie-app-a4bl.onrender.com",
   "vercel": {
     "build": {
       "env": {
