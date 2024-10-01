@@ -25,7 +25,7 @@ const app = express();
 app.use(cors()); // Enable CORS for all routes
 
 app.use(express.json());
-
+const port=process.env.PORT || 8800
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/movies", movieRoute);
