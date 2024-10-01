@@ -33,4 +33,5 @@ app.use("/api/lists", listRoute);
 
 app.listen(8800, () => {
   console.log("Backend server is running!");
+  console.log(`Example app listening on port ${port}`)
 });
