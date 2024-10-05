@@ -48,14 +48,13 @@ export default function Login() {
           />
           {/* Conditional rendering of loader */}
           <button className="loginButton" onClick={handleLogin}>
-            {isLoading ? "Loading..." : "Sign In"}
+            {isLoading ?<div className='spinng'><div class="loader"></div><span>Signin in</span></div>  : "Sign In"}
           </button>
           <span>
-            New to Netflix? <Link to='/register' style={{textDeccoration:'none',cursor:'pointer'}}>Sign up now.</Link>
+            New to Netflix? <Link to='/register' style={{textDecoration:'none',cursor:'pointer',color:'#fff'}} className='text-white cursor-pointer'>Sign up now.</Link>
           </span>
           <small>
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot. <b>Learn more</b>.
+          This project is a demonstration of my coding skills and is not affiliated with or endorsed by Netflix. For the official site please visit<a href='https://www.netflix.com/ng/' target='_blank'> www.netflix.com</a>.
           </small>
         </form>
       </div>

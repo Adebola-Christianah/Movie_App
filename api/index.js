@@ -9,7 +9,7 @@ const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
 
 dotenv.config();
-origin: ["https://movie-app-1-ocg6.onrender.com","http://localhost:3000/","http://localhost:3001/","http://localhost:3002/"],
+origin: ["https://movie-app-1-ocg6.onrender.com","http://localhost:3000/","http://localhost:3001/","http://localhost:4000/"],
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
