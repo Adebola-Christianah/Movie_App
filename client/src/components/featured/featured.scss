@@ -3,8 +3,8 @@
 .featured {
   height: 85vh;
   &.fullHeight {
-    height: 100vh; // full height when showContent is true
-    overflow: scroll;
+    // height: 100vh; 
+    // overflow: scroll;
   }
   // position: relative;
   object-fit: cover;
