@@ -169,16 +169,49 @@
     }
   }
 }
-.flex{
+.flex {
   display: flex;
   align-items: center;
-  gap:20px;
-  
-  .paragraph{font-size: 14px;
+  gap: 5px;
+
+  .paragraph {
+    font-size: 14px;
     width: 60%;
+    @include mobile {
+    
+      width:100% // Align items to the start for a cleaner column look
+      
+    }
   }
+
+  @include mobile {
+    flex-direction: column; // Switch to column on mobile
+    align-items: flex-start;
+    width:100% // Align items to the start for a cleaner column look
+    
+  }
+  p{width:90%;
+  margin:0 auto;}
 }
-.episode{
-  width: 98%;
-  margin:24px auto 0 auto;
+
+.episode {
+  width:100%;
+  margin: 24px auto 0 auto;
+
+  .responsive-video {
+    /* Default styling for larger screens */
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  /* Media query for mobile screens (max-width 768px) */
+  @media (max-width: 768px) {
+    .responsive-video {
+      width: 100%; /* 90% width on mobile */
+      height: auto; /* Adjust height to maintain aspect ratio */
+      display: block; /* Ensures proper centering */
+      margin: 0 auto; /* Center the video */
+    }
+  }
 }

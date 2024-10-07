@@ -89,7 +89,13 @@ export default function Featured({ type, setGenre, showContent, setShowContent }
                     <h4 className=""style={{marginBottom:'5px'}}>Episode {index+1}</h4>
                    <div className="flex">
                    <Link to={{ pathname: "/watch", movie: episode }} className="link">
-                    <video src={episode.video} style={{ width: '250px', height: '150px', objectFit:'cover'}} controls />
+                   <video
+  src={episode.video}
+  className="responsive-video"
+  style={{ height: '150px', objectFit: 'cover' }}
+  controls
+/>
+
                     </Link>
                     <p className="paragraph">{episode.desc}</p>
                     </div> 

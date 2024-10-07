@@ -2,7 +2,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@material-ui/icons";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ListItem from "../listItem/ListItem";
 import "./list.scss";
 
@@ -12,6 +12,18 @@ export default function List({ list }) {
   const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
 
   const listRef = useRef();
+
+  // Handle window resize and update clickLimit based on screen width
+  useEffect(() => {
+    const handleResize = () => {
+      setClickLimit(window.innerWidth / 230);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleClick = (direction) => {
     setIsMoved(true);
@@ -25,6 +37,7 @@ export default function List({ list }) {
       listRef.current.style.transform = `translateX(${-230 + distance}px)`;
     }
   };
+
   return (
     <div className="list">
       <span className="listTitle">{list.title}</span>
@@ -36,7 +49,7 @@ export default function List({ list }) {
         />
         <div className="container" ref={listRef}>
           {list.content.map((item, i) => (
-            <ListItem index={i} item={item} />
+            <ListItem key={i} index={i} item={item} />
           ))}
         </div>
         <ArrowForwardIosOutlined
