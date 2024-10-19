@@ -132,3 +132,75 @@
   font-weight: 600;
   cursor: pointer;
 }
+.episodeSection {
+  margin-bottom: 2rem;
+}
+
+.episodeForm {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.episodeForm h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.episodeForm label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.episodeForm input[type="text"],
+.episodeForm input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.episodeForm input[type="file"] {
+  padding: 8px;
+  font-size: 0.9rem;
+}
+
+.episodeForm .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.episodeForm .form-group-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.episodeForm .form-group-row .form-group {
+  flex: 1;
+}
+
+.episodeForm button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.episodeForm button:hover {
+  background-color: #0056b3;
+}

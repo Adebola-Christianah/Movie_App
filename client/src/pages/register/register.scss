@@ -68,7 +68,6 @@
     .input {
       width: 100%;
       max-width: 600px;
-      background-color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -92,6 +91,37 @@
         font-size: 22px;
         cursor: pointer;
       }
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+    }
+    
+    .top {
+      .wrapper {
+        padding: 15px;
+      }
+    }
+    
+    .input {
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px; /* Adding a gap of 5px between input and button */
+      height: auto; /* Let height adjust based on content */
+    }
+  
+    input, .registerButton {
+      width: 100%!important;
+      height: 60px!important; /* Increase the height for better visibility on mobile */
+      border-radius: 5px;
+      padding: 10px!important;
+    }
+  
+    .registerButton {
+      font-size: 20px; /* Adjust font size to fit better */
+       
+    
     }
   }
 }

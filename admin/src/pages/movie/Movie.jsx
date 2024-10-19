@@ -124,7 +124,13 @@ export default function Movie() {
       });
     }
   };
-
+  const [episodes, setEpisodes] = useState(movie.isSeries ? movie.episodes : []);
+  const handleEpisodeChange = (index, e) => {
+    const { name, value } = e.target;
+    const newEpisodes = [...episodes];
+    newEpisodes[index] = { ...newEpisodes[index], [name]: value };
+    setEpisodes(newEpisodes);
+  };
   if (!movie) {
     return <div>Loading...</div>;
   }
@@ -225,7 +231,43 @@ export default function Movie() {
               onChange={(e) => handleFileChange(e, setVideo)}
             />
           </div>
+       
           <div className="productFormRight">
+          {movie.isSeries && (
+          <div className="episodeSection">
+            <h3>Update Episodes</h3>
+            {episodes.map((episode, index) => (
+              <div key={index} className="episodeForm">
+                <label>Episode {index + 1} Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={episode.title}
+                  onChange={(e) => handleEpisodeChange(index, e)}
+                />
+                <label>Episode Description</label>
+                <input
+                  type="text"
+                  name="desc"
+                  value={episode.desc}
+                  onChange={(e) => handleEpisodeChange(index, e)}
+                />
+                <label>Episode Video</label>
+                <input
+                  type="file"
+                  name="video"
+                  onChange={(e) => handleFileChange(e, setVideo)}
+                />
+                <label>Episode Thumbnail</label>
+                <input
+                  type="file"
+                  name="thumbnail"
+                  onChange={(e) => handleFileChange(e, setImgSm)}
+                />
+              </div>
+            ))}
+          </div>
+        )}
             <div className="productUpload">
               <img src={movie.img} alt="" className="productUploadImg" />
               <label htmlFor="file">
